@@ -33,7 +33,7 @@ $(document).ready(function () {
             type: "post", // method  , by default get
             error: function () { // error handling
                 $(".lookup-error").html("");
-                $("#lookup").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+                $("#lookup").append('<tbody class="employee-grid-error"><tr><th align="center" colspan="8">No data found in the server</th></tr></tbody>');
                 $("#lookup_processing").css("display", "none");
 
             }

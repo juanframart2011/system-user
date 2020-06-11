@@ -18,13 +18,14 @@ $columns = array(
 	0 => 'id',
     1 => 'nombres',
     2 => 'apellidoPaterno',
-	3 => 'telefono',
-    4 => 'direccion',
-    5 => 'registrado'  
+    3 => 'imagen',
+	4 => 'telefono',
+    5 => 'direccion',
+    6 => 'registrado'  
 );
 
 // getting total number records without any search
-$sql = "SELECT id, nombres, apellidoPaterno, apellidoMaterno, sexo, fechaNacimiento, nacionalidad, lugarNacimiento, paisResidencia, estadoReside, municipio, localidad, email, registrado, direccion, telefono ";
+$sql = "SELECT id, nombres, apellidoPaterno, apellidoMaterno, sexo, fechaNacimiento, nacionalidad, lugarNacimiento, paisResidencia, estadoReside, municipio, localidad, email, registrado, direccion, telefono, imagen ";
 $sql.=" FROM clientes";
 $query=mysqli_query($conn, $sql) or die("ajax-grid-data.php: get InventoryItems");
 $totalData = mysqli_num_rows($query);
@@ -33,7 +34,7 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 
 if( !empty($requestData['search']['value']) ) {
 	// if there is a search parameter
-	$sql = "SELECT id, nombres, telefono, email, direccion, registrado ";
+	$sql = "SELECT id, nombres, apellidoPaterno, apellidoMaterno, sexo, fechaNacimiento, nacionalidad, lugarNacimiento, paisResidencia, estadoReside, municipio, localidad, email, registrado, direccion, telefono, imagen ";
 	$sql.=" FROM clientes";
 	$sql.=" WHERE nombres LIKE '".$requestData['search']['value']."%' ";
 	$sql.=" WHERE apellidoPaterno LIKE '".$requestData['search']['value']."%' ";
@@ -49,7 +50,7 @@ if( !empty($requestData['search']['value']) ) {
 	
 } else {	
 
-	$sql = "SELECT id, nombres, apellidoPaterno, apellidoMaterno, sexo, fechaNacimiento, nacionalidad, lugarNacimiento, paisResidencia, estadoReside, municipio, localidad, email, registrado, direccion, telefono ";
+	$sql = "SELECT id, nombres, apellidoPaterno, apellidoMaterno, sexo, fechaNacimiento, nacionalidad, lugarNacimiento, paisResidencia, estadoReside, municipio, localidad, email, registrado, direccion, telefono, imagen ";
 	$sql.=" FROM clientes";
 	$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."   LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
 	$query=mysqli_query($conn, $sql) or die("ajax-grid-data.php: get PO");
@@ -62,7 +63,8 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 
 	$nestedData[] = $row["id"];
     $nestedData[] = $row["nombres"];
-	$nestedData[] = $row["apellidoPaterno"];
+    $nestedData[] = $row["apellidoPaterno"];
+    $nestedData[] = '<img class="img-responsive" src="' . $row["imagen"] . '" />';
 	$nestedData[] = $row["telefono"];
     $nestedData[] = $row["direccion"];
     $nestedData[] = date("d/m/Y", strtotime($row["registrado"]));

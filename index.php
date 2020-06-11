@@ -55,6 +55,7 @@
 										<th>ID</th>
 										<th>Nombres</th>
 										<th>Apellido Paterno</th>
+										<th>Imagen</th>
 										<th>Telefono</th>
 										<th>Dirección</th>
 										<th>Registrado</th>
